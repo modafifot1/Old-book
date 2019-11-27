@@ -1,0 +1,16 @@
+extends ../layouts/common.pug
+block content 
+     .container
+        h1.col-sm-6 Login
+        if errors
+            each val in errors
+                .alert.alert-danger.col-sm-6= val
+        form(action="/auth/login", method="post")
+            .form-group.col-sm-6
+                label(for='exampleInputEmail1') Email address
+                input#exampleInputEmail1.form-control(type='email',name="email", aria-describedby='emailHelp', placeholder='Enter email', value= value?value.email:"")
+            .form-group.col-sm-6
+                label(for='exampleInputPassword1') Password
+                input#exampleInputPassword1.form-control(type='password',name="pass", placeholder='Password')
+            .col-sm-6    
+                button.btn.btn-primary(type='submit') Login

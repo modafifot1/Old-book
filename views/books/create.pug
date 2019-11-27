@@ -1,0 +1,33 @@
+extends ../layouts/common.pug
+block content
+    .container
+        h1 Add books
+        if errors
+            each error in errors
+                .alert.alert-danger.col-sm-6= error
+        form(method="POST", action="/users/create",enctype='multipart/form-data', onLoad="initialize()" )
+            .form-group.row.col-sm-6
+                label(for="name") Name(*)
+                input(name="Name",id="name", class="form-control", type="text", value= value? value.Name:"")
+            .input-group.form-group.row.col-sm-6
+                .input-group-prepend
+                    label.input-group-text(for='inputGroupSelect01') Types(*)
+                select#inputGroupSelect01.custom-select(name= 'type')
+                    option(selected='') Choose...
+                    option(value='1') Giáo án 
+                    option(value='2') Đề thi
+                    option(value='3') Giáo trình
+            .form-group.row.col-sm-6
+                label(for="avatar") Image
+                input(name="avatar",id="avatar", class="form-control-file", type="file")        
+            .form-group.row.col-sm-6
+                label(for="author") Author
+                input(name="author",id="author", class="form-control", type="text", value= value? value.Phone:"")
+            .form-group.row.col-sm-6
+                label(for="description") Description
+                input(name="description",id="description", class="form-control", type="text", value= value? value.Phone:"")
+            .form-group.row.col-sm-6
+                label(for='address') Address
+                input#address.form-control.map-input(type='text', name='address', onKeyup="codeAddress()" )
+            #map(style='width: 320px; height: 480px;')    
+            button(type="submit", class="btn btn-primary") Add
