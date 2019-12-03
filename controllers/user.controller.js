@@ -18,7 +18,6 @@ module.exports.getProfile = async (req, res)=>{
 module.exports.patchProfile = async (req, res)=>{
     const id = req.signedCookies.userId;
     const user = await User.updateOne({_id: id}, req.body);
-    console.log(user);
     if(!user.ok){
         res.render("users/my-account");
     }
@@ -56,7 +55,6 @@ module.exports.getSuggestions = async (req, res)=>{
     if(suggestionIds.length!=0){
         for (const suggestionId of suggestionIds ){
             const bookOffer = await Book.findById(suggestionId.bookId);
-            console.log(bookOffer);
             bookOffers.push(bookOffer);
             const response = await googleMapsClient.geocode({
                 address: bookOffer.address

@@ -4,12 +4,12 @@ const bookSchema = new mongoose.Schema({
     userId: String,
     name: {type: String, required: true},
     type:{type: String, required:true},
-    image: String,
+    image: String,//imagePath
     author: String,
     description: String,
     date: {type: Date, default: Date.now},
     address: String,
-    suggestionIds:[
+    suggestionIds:[ //suggestion
         {
             bookId: String
         }

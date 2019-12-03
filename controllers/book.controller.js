@@ -1,4 +1,5 @@
 const Book = require("../models/book.model");
+const User = require("../models/user.model");
 
 module.exports.getCreate = (req, res)=>{
     res.render("books/create");
@@ -31,7 +32,7 @@ module.exports.getId = async (req, res)=>{
         bookOffers: bookOffers
     });
 }
-module.exports.getCreateOfffer = async (req, res)=>{
+module.exports.postCreateOfffer = async (req, res)=>{
     const id = req.params.id;
     const offer = await Book.create({
         userId: req.signedCookies.userId,
@@ -43,5 +44,12 @@ module.exports.getCreateOfffer = async (req, res)=>{
         bookId: offer._id
     })
     const bookUp = await  Book.findByIdAndUpdate(id,{suggestionIds: book.suggestionIds});
+    const user = await User.findById(req.signedCookies.userId);
+    let offers =user.offers;
+    offers . push({
+        bookId: offer._id
+    });
+    const userUp = await  User.findByIdAndUpdate(req.signedCookies.userId,{offers: offers});
+
     res.redirect(`/books/${id}`);
 }

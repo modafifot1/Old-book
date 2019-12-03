@@ -18,6 +18,6 @@ let upload = multer({storage: storage});
 router.get("/create", bookController.getCreate);
 router.post("/create",upload.single("avatar"), bookMiddleware.postCreate, bookController.postCreate );
 router.get("/:id", bookController.getId);
-router.post("/:id/createOffer",upload.single("avatar"), bookMiddleware.postCreateOffer, bookController.getCreateOfffer);
+router.post("/:id/createOffer",upload.single("avatar"), bookMiddleware.postCreateOffer, bookController.postCreateOfffer);
 
 module.exports = router;
