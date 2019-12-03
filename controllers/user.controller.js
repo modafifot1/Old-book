@@ -1,6 +1,9 @@
 const User = require("../models/user.model");
 const Book = require("../models/book.model");
-
+const googleMapsClient = require('@google/maps').createClient({
+    key: 'AIzaSyDxXsSWNquWZi78Atj2JUj8kSlJuCTGUaU',
+    Promise: Promise
+  });
 
 module.exports.getMyAccount = (req, res)=>{
     res.render("users/my-account");
@@ -37,10 +40,34 @@ module.exports.getOffers = async (req, res)=>{
     });
 
 }
-module.exports.getSugesstions = async (req, res)=>{
+module.exports.getBooks = async (req, res)=>{
     const id = req.signedCookies.userId;
     const books = await Book.find({userId: id});
-    res.render("users/user_suggestions",{
+    res.render("users/user_books",{
         books: books
     });
+}
+module.exports.getSuggestions = async (req, res)=>{
+
+    const id = req.params.id;
+    const book = await Book.findById(id);
+    const suggestionIds = book.suggestionIds;
+    let bookOffers = [];
+    if(suggestionIds.length!=0){
+        for (const suggestionId of suggestionIds ){
+            const bookOffer = await Book.findById(suggestionId.bookId);
+            console.log(bookOffer);
+            bookOffers.push(bookOffer);
+            const response = await googleMapsClient.geocode({
+                address: bookOffer.address
+            }).asPromise();
+            let lat =response.json.results[0].geometry.location.lat;
+            let lng =response.json.results[0].geometry.location.lng;
+        }
+    }
+    res.render("users/user_suggestions",{
+        book: book,
+        bookOffers: bookOffers
+    });
+
 }

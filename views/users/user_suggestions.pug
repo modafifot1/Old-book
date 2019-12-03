@@ -1,12 +1,26 @@
-extends ./my-account.pug
-block detail
-    .sugesstion.col-sm-8(style='margin-left: 350px')
-        .row
-            each book in books
-                    if(book)
-                    .card.col-sm-3.mt-3(style='width: 18rem;')
-                        img.card-img-top(src= book.image, alt='BIGBANG')
-                        .card-body(style="position: relative")
-                            h5.card-title= book.name
-                            p.card-text(style="margin-bottom: 40px")= book.description
-                            a.btn.btn-primary(href='/cart/add/'+ book.id, style="position: absolute; bottom: 5px") Cart       
+extends ../layouts/common.pug
+block content
+    link(rel='stylesheet', href='/css/my-account.css', type='text/css')
+    .row(style= 'margin-top: 10px;height: 100%;z-index:0')
+        .left-sidebar.col-sm-3(style = 'overflow-y: auto;height: 100%;position: fixed;border-right: 4px solid #0069D9')
+            if(book)
+                -var bookId = book._id;
+                .row
+                .card.col-sm-12.mt-3(style='width: 18rem;')
+                    img.card-img-top(src= book.image, alt='BIGBANG')
+                    .card-body(style="position: relative")
+                        h5.card-title= book.name
+                        p.card-text(style="margin-bottom: 40px")= book.description                         
+        .right-sidebar.col-sm-8(style='margin-left: 350px')
+            form.form-inline.mt-5(method="post", action=`/users/books/${bookId}/suggestions?q`)
+                input.form-control.mr-sm-2(type='search', placeholder='Search', aria-label='Search')
+                button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Search
+
+            if bookOffers
+                each bookOffer in bookOffers
+                    .row(style='margin-top: 10px')
+                        .img-row.col-sm-3
+                            img.card-img-top(src= bookOffer.image, alt='BIGBANG')
+                        .content-book.col-sm-9
+                            h5.card-title= bookOffer.name
+                            p.card-text(style="margin-bottom: 40px")= bookOffer.description 

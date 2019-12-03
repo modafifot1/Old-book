@@ -4,7 +4,7 @@ module.exports.get = (req, res)=>{
 }
 module.exports.post = (req, res)=>{
     
-    res.render("index");
+    res.redirect("/books");
 }
 module.exports.getLogout = (req, res)=>{
     res.clearCookie("userId");

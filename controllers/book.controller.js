@@ -1,38 +1,19 @@
 const Book = require("../models/book.model");
-const googleMapsClient = require('@google/maps').createClient({
-    key: 'AIzaSyDxXsSWNquWZi78Atj2JUj8kSlJuCTGUaU',
-    Promise: Promise
-  });
 
 module.exports.getCreate = (req, res)=>{
     res.render("books/create");
 }
 
 module.exports.postCreate = async (req, res)=>{
-  
-//     const address = req.body.address;
-//     console.log(address);
-//     let lat = 0;
-//     let lng = 0;
-//      const response = await googleMapsClient.geocode({
-//         address: address
-//       }).asPromise();
-//    lat = response.json.results[0].geometry.location.lat;
-//    lng = response.json.results[0].geometry.location.lng;
-    const book = await Book.insertMany({//create
+    const book = await Book.create({
         userId: req.signedCookies.userId,
-        name: req.body.name,
-        type: req.body.type,
+        ...req.body,
         image: "/"+req.file.path.split("\\").slice(1).join("/"),
-        author: req.body.author,
-        description: req.body.description,
-        address: req.body.address
-
     });
-    res.render("books/index",{
-        books: book
+    res.render("users/user_newBook",{
+        book: book
     });  
-   
+
 }
 module.exports.getId = async (req, res)=>{
     const id = req.params.id;
@@ -50,6 +31,17 @@ module.exports.getId = async (req, res)=>{
         bookOffers: bookOffers
     });
 }
-module.exports.getCreateOfffer = (req, res)=>{
-    res.render("books/book_createOffer");
+module.exports.getCreateOfffer = async (req, res)=>{
+    const id = req.params.id;
+    const offer = await Book.create({
+        userId: req.signedCookies.userId,
+        ...req.body,
+        image: "/"+req.file.path.split("\\").slice(1).join("/")
+    });
+    const book = await Book.findById(id);
+    book.suggestionIds.push({
+        bookId: offer._id
+    })
+    const bookUp = await  Book.findByIdAndUpdate(id,{suggestionIds: book.suggestionIds});
+    res.redirect(`/books/${id}`);
 }

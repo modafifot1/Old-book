@@ -28,34 +28,35 @@ block content
                     var create = document.getElementById("create");
                     create.style.display ='none';
                 }
-            if errors
-                each error in errors
-                    .alert.alert-danger.col-sm-6= error
-            form.mt-5(method="POST", action=`/books/${bookId}/createOffer`,enctype='multipart/form-data' id='f', style='display: none')
-                .form-group
-                    label(for="name") Name(*)
-                    input(name="name",id="name", class="form-control", type="text", value= value? value.name:"")
-                .input-group.form-group
-                    .input-group-prepend
-                        label.input-group-text(for='inputGroupSelect01') Types(*)
-                    select#inputGroupSelect01.custom-select(name= 'type')
-                        option(selected="none") Choose...
-                        option(value='Giáo án ') Giáo án 
-                        option(value='Đề thi') Đề thi
-                        option(value='Giáo trình') Giáo trình
-                .form-group
-                    label(for="avatar") Image
-                    input(name="avatar",id="avatar", class="form-control-file", type="file")        
-                .form-group
-                    label(for="author") Author
-                    input(name="author",id="author", class="form-control", type="text", value= value? value.Phone:"")
-                .form-group
-                    label(for="description") Description
-                    input(name="description",id="description", class="form-control", type="text", value= value? value.Phone:"")
-                .form-group
-                    label(for='address') Address(*)
-                    input#address.form-control.map-input(type='text', name='address' )
-                    input.form-control.map-input(type='hidden', id="lat", name='lat' )
-                    input.form-control.map-input(type='hidden', id="lng", name='lng' )
-                button(type="submit", class="btn btn-primary") Add
-            button.mt-5(type='button', onclick='show()', id = 'create', class="btn btn-primary") Create offer
+            .createForm.mt-5    
+                if errors
+                    each error in errors
+                        .alert.alert-danger.col-sm-6= error
+                form(method="POST", action=`/books/${bookId}/createOffer`,enctype='multipart/form-data' id='f', style='display: none')
+                    .form-group
+                        label(for="name") Name(*)
+                        input(name="name",id="name", class="form-control", type="text", value= value? value.name:"")
+                    .input-group.form-group
+                        .input-group-prepend
+                            label.input-group-text(for='inputGroupSelect01') Types(*)
+                        select#inputGroupSelect01.custom-select(name= 'type')
+                            option(selected="none") Choose...
+                            option(value='Giáo án ') Giáo án 
+                            option(value='Đề thi') Đề thi
+                            option(value='Giáo trình') Giáo trình
+                    .form-group
+                        label(for="avatar") Image
+                        input(name="avatar",id="avatar", class="form-control-file", type="file")        
+                    .form-group
+                        label(for="author") Author
+                        input(name="author",id="author", class="form-control", type="text", value= value? value.Phone:"")
+                    .form-group
+                        label(for="description") Description
+                        input(name="description",id="description", class="form-control", type="text", value= value? value.Phone:"")
+                    .form-group
+                        label(for='address') Address(*)
+                        input#address.form-control.map-input(type='text', name='address' )
+                        input.form-control.map-input(type='hidden', id="lat", name='lat' )
+                        input.form-control.map-input(type='hidden', id="lng", name='lng' )
+                    button(type="submit", class="btn btn-primary") Add
+                button.mt-5(type='button', onclick='show()', id = 'create', class="btn btn-primary") Create offer
