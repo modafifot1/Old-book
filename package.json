@@ -17,6 +17,11 @@
     "url": "https://github.com/modafifot1/Old-book/issues"
   },
   "homepage": "https://github.com/modafifot1/Old-book#readme",
+  "husky": {
+    "hooks": {
+      "pre-commit": "pretty-quick --staged"
+    }
+  },
   "dependencies": {
     "@google/maps": "^1.0.2",
     "cookie-parser": "^1.4.4",
