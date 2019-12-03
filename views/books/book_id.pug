@@ -1,0 +1,61 @@
+extends ../layouts/common.pug
+block content
+    link(rel='stylesheet', href='/css/my-account.css', type='text/css')
+    .row(style= 'margin-top: 10px;height: 100%;z-index:0')
+        .left-sidebar.col-sm-3(style = 'overflow-y: auto;height: 100%;position: fixed;border-right: 4px solid #0069D9')
+            if(book)
+                -var bookId = book._id;
+                .row
+                .card.col-sm-12.mt-3(style='width: 18rem;')
+                    img.card-img-top(src= book.image, alt='BIGBANG')
+                    .card-body(style="position: relative")
+                        h5.card-title= book.name
+                        p.card-text(style="margin-bottom: 40px")= book.description                         
+        .right-sidebar.col-sm-8(style='margin-left: 350px')
+            if bookOffers
+                each bookOffer in bookOffers
+                    .row(style='margin-top: 10px')
+                        .img-row.col-sm-3
+                            img.card-img-top(src= bookOffer.image, alt='BIGBANG')
+                        .content-book.col-sm-9
+                            h5.card-title= bookOffer.name
+                            p.card-text(style="margin-bottom: 40px")= bookOffer.description 
+            script(language="javascript").
+                function show(){
+                    
+                    var f = document.getElementById("f");
+                    f.style.display = 'block';
+                    var create = document.getElementById("create");
+                    create.style.display ='none';
+                }
+            if errors
+                each error in errors
+                    .alert.alert-danger.col-sm-6= error
+            form.mt-5(method="POST", action=`/books/${bookId}/createOffer`,enctype='multipart/form-data' id='f', style='display: none')
+                .form-group
+                    label(for="name") Name(*)
+                    input(name="name",id="name", class="form-control", type="text", value= value? value.name:"")
+                .input-group.form-group
+                    .input-group-prepend
+                        label.input-group-text(for='inputGroupSelect01') Types(*)
+                    select#inputGroupSelect01.custom-select(name= 'type')
+                        option(selected="none") Choose...
+                        option(value='Giáo án ') Giáo án 
+                        option(value='Đề thi') Đề thi
+                        option(value='Giáo trình') Giáo trình
+                .form-group
+                    label(for="avatar") Image
+                    input(name="avatar",id="avatar", class="form-control-file", type="file")        
+                .form-group
+                    label(for="author") Author
+                    input(name="author",id="author", class="form-control", type="text", value= value? value.Phone:"")
+                .form-group
+                    label(for="description") Description
+                    input(name="description",id="description", class="form-control", type="text", value= value? value.Phone:"")
+                .form-group
+                    label(for='address') Address(*)
+                    input#address.form-control.map-input(type='text', name='address' )
+                    input.form-control.map-input(type='hidden', id="lat", name='lat' )
+                    input.form-control.map-input(type='hidden', id="lng", name='lng' )
+                button(type="submit", class="btn btn-primary") Add
+            button.mt-5(type='button', onclick='show()', id = 'create', class="btn btn-primary") Create offer

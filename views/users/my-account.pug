@@ -1,0 +1,16 @@
+extends ../layouts/common.pug
+block content
+    link(rel='stylesheet', href='/css/my-account.css', type='text/css')
+    .row(style= 'margin-top: 30px;height: 100%;z-index:0')
+        .left-sidebar.col-sm-3(style = 'overflow-y: auto;height: 100%;position: fixed')
+            ul.left-sidebar-menu(style='list-style-type: none')
+                li
+                    a(href='/books/create') Create book   
+                li 
+                    a(href='/users/profile') Your profile
+                li 
+                    a(href='/users/offers') Your offer
+                li  
+                    a(href='/users/sugesstions') Suggesstion
+                
+        block detail

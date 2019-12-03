@@ -1,0 +1,18 @@
+extends ./my-account.pug
+block detail
+    .profile.col-sm-8(style="margin-left: 350px")
+        if user
+            form(method="post", action="/users/profile")
+                .form-group
+                    label(for="name") Name:
+                    input(name="name",id="name", class="form-control", type="text", value= user.name)
+                .form-group
+                    label(for="email") Email:
+                    input(name="email",id="email", class="form-control", type="text", value= user.email, readonly = true)
+                .form-group
+                    label(for="phone") Phone:
+                    input(name="phone",id="phone", class="form-control", type="text", value= user.phone)
+                .form-group
+                    label(for="gender") Gender:
+                    input(name="gender",id="gender", class="form-control", type="text", value= user.gender)
+                button(type="submit", class="btn btn-primary") Edit profile

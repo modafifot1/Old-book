@@ -1,11 +1,9 @@
 html
     head 
         link(rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css")
-        script(language= "javascript" src="https://maps.googleapis.com/maps/api/js?key=AIzaSyCBLRxJeXUWtOZchm51GGezoTv6gQdMYOA&callback=initMap", async defer) 
         script(language= "javascript")
             include ../../connectmap.js
-    body(onload="initialize()")
-        nav.navbar.navbar-expand-lg.navbar-light.bg-light
+        nav.navbar.navbar-expand-lg.navbar-primary(style ='border-bottom: 4px solid #0069D9; position:fixed;width: 100%;background-color: #e3f2fd;z-index:1')
             a.navbar-brand(href='#') OLD BOOK
             button.navbar-toggler(type='button', data-toggle='collapse', data-target='#navbarNav', aria-controls='navbarNav', aria-expanded='false', aria-label='Toggle navigation')
                 span.navbar-toggler-icon
@@ -13,10 +11,16 @@ html
                 ul.navbar-nav
                     li.nav-item
                         a.nav-link(href='/home') Home 
-                    li.nav-item
+                    li.nav-item 
                         a.nav-link(href='/books') Books
-            if(user)
-                p= user.name         
-
-    
-block content
+            if user
+                a(style='margin: auto' href= `/users:${user.id}/my-account`)= user.name 
+                a.btn.btn-primary.ml-3(href = '/auth/logout' role = 'button') Logout  
+            else if userId  
+           
+                    a(style='margin: auto' href= `/users:${userId}/my-account`)= "My account" 
+                    a.btn.btn-primary.ml-3(href = '/auth/logout' role = 'button') Logout   
+            else
+                a.btn.btn-primary.ml-3(href = '/auth/login' role = 'button') Login 
+        .container.pt-5
+            block content

@@ -2,14 +2,18 @@ const mongoose = require("mongoose");
 
 const bookSchema = new mongoose.Schema({
     userId: String,
-    name: String,
+    name: {type: String, required: true},
     type:{type: String, required:true},
     image: String,
     author: String,
     description: String,
     date: {type: Date, default: Date.now},
-    address: {type: String, required: true},
-    idSuggestion:[{type: String, _id:false}]
+    address: String,
+    suggestionIds:[
+        {
+            bookId: String
+        }
+    ]
 });
 let Book = mongoose.model("Book", bookSchema, "books");
 module.exports = Book;

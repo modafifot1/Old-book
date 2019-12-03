@@ -32,9 +32,11 @@ module.exports.validate = async (req, res, next)=>{
         return;
     }
     res.cookie("userId", user._id,{
-        signed: true
+        maxAge: 1800000,
+        httpOnly: true,
+        signed: true,
     });
-    res.locals.user = user;
+    
     next();
 
 }
@@ -44,10 +46,11 @@ module.exports.requireLogin = async (req, res, next)=>{
         return;
     }
     const user = await User.findOne({_id: req.signedCookies.userId});
+    
     if(!user){
         res.redirect("/auth/login");
         return;
     }
-    
+    res.locals.user = user;
     next();
 }

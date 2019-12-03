@@ -6,6 +6,7 @@ const Book = require("./models/book.model");
 
 const authRoute = require("./routes/auth.route");
 const bookRoute = require("./routes/book.route");
+const userRoute = require("./routes/user.route");
 
 const authMiddleware = require("./middlewares/auth.middleware");
 
@@ -30,12 +31,15 @@ app.get("/home", (req, res)=>{
 app.get("/books", async(req, res)=>{
     const books = await Book.find();
     res.render("books/index",{
-        books: books
+        books: books,
+        userId: req.signedCookies.userId
     })
 });
 
 app.use("/auth", authRoute);
 app.use("/books",authMiddleware.requireLogin, bookRoute);
+app.use("/", authMiddleware.requireLogin, userRoute);
+
 
 app.listen(port, ()=>{
     console.log(`Listenning Port: ${port}`);
