@@ -24,6 +24,7 @@
   },
   "dependencies": {
     "@google/maps": "^1.0.2",
+    "@sendgrid/mail": "^6.4.0",
     "cookie-parser": "^1.4.4",
     "express": "^4.17.1",
     "geocoder": "^0.2.3",

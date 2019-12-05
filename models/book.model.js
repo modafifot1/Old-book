@@ -9,8 +9,11 @@ const bookSchema = new mongoose.Schema({
     description: String,
     date: {type: Date, default: Date.now},
     address: String,
+    lat: Number,
+    lng: Number,
     suggestionIds:[ //suggestion
         {
+            _id: false,
             bookId: String
         }
     ]

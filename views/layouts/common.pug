@@ -14,12 +14,9 @@ html
                     li.nav-item 
                         a.nav-link(href='/books') Books
             if user
+                a.mr-3(style='margin: auto' href= `/users:${user.id}/my-account`)= `Notifications` 
                 a(style='margin: auto' href= `/users:${user.id}/my-account`)= user.name 
-                a.btn.btn-primary.ml-3(href = '/auth/logout' role = 'button') Logout  
-            else if userId  
-           
-                    a(style='margin: auto' href= `/users:${userId}/my-account`)= "My account" 
-                    a.btn.btn-primary.ml-3(href = '/auth/logout' role = 'button') Logout   
+                a.btn.btn-primary.ml-3(href = '/auth/logout' role = 'button') Logout     
             else
                 a.btn.btn-primary.ml-3(href = '/auth/login' role = 'button') Login 
         .container.pt-5

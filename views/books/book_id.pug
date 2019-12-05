@@ -9,7 +9,8 @@ block content
                 .card.col-sm-12.mt-3(style='width: 18rem;')
                     img.card-img-top(src= book.image, alt='BIGBANG')
                     .card-body(style="position: relative")
-                        h5.card-title= book.name
+                        p.card-text()= `Description: ${book.description}`
+                        p.card-text()= `Address: ${book.address}`
                         p.card-text(style="margin-bottom: 40px")= book.description                         
         .right-sidebar.col-sm-8(style='margin-left: 350px')
             if bookOffers
@@ -19,7 +20,8 @@ block content
                             img.card-img-top(src= bookOffer.image, alt='BIGBANG')
                         .content-book.col-sm-9
                             h5.card-title= bookOffer.name
-                            p.card-text(style="margin-bottom: 40px")= bookOffer.description 
+                            p.card-text(style="margin-bottom: 40px")= bookOffer.description
+                            p()= `Address: ${bookOffer.address}` 
             script(language="javascript").
                 function show(){
                     
@@ -33,30 +35,13 @@ block content
                     each error in errors
                         .alert.alert-danger.col-sm-6= error
                 form(method="POST", action=`/books/${bookId}/createOffer`,enctype='multipart/form-data' id='f', style='display: none')
-                    .form-group
-                        label(for="name") Name(*)
-                        input(name="name",id="name", class="form-control", type="text", value= value? value.name:"")
                     .input-group.form-group
                         .input-group-prepend
-                            label.input-group-text(for='inputGroupSelect01') Types(*)
+                            label.input-group-text(for='inputGroupSelect01') Select from your books(*)
                         select#inputGroupSelect01.custom-select(name= 'type')
                             option(selected="none") Choose...
-                            option(value='Giáo án ') Giáo án 
-                            option(value='Đề thi') Đề thi
-                            option(value='Giáo trình') Giáo trình
-                    .form-group
-                        label(for="avatar") Image
-                        input(name="avatar",id="avatar", class="form-control-file", type="file")        
-                    .form-group
-                        label(for="author") Author
-                        input(name="author",id="author", class="form-control", type="text", value= value? value.Phone:"")
-                    .form-group
-                        label(for="description") Description
-                        input(name="description",id="description", class="form-control", type="text", value= value? value.Phone:"")
-                    .form-group
-                        label(for='address') Address(*)
-                        input#address.form-control.map-input(type='text', name='address' )
-                        input.form-control.map-input(type='hidden', id="lat", name='lat' )
-                        input.form-control.map-input(type='hidden', id="lng", name='lng' )
+                            if(yourBooks)
+                                each yourBook in yourBooks
+                                    option(value=yourBook._id)= yourBook.name 
                     button(type="submit", class="btn btn-primary") Add
                 button.mt-5(type='button', onclick='show()', id = 'create', class="btn btn-primary") Create offer

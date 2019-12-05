@@ -10,6 +10,7 @@ block content
                         img.card-img-top(src= book.image, alt='BIGBANG')
                         .card-body(style="position: relative")
                             h5.card-title= book.name
-                            p.card-text(style="margin-bottom: 40px")= book.description
-                            a.btn.btn-primary(href=`/books/${book._id}`, style="position: absolute; bottom: 5px") Offer
+                            p.card-text()= `Description: ${book.description}`
+                            p.card-text()= `Address: ${book.address}`
+                        a.btn.btn-primary(href=`/books/${book._id}`, style="width: 100px") Offer
                 

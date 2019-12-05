@@ -10,10 +10,11 @@ block content
                     img.card-img-top(src= book.image, alt='BIGBANG')
                     .card-body(style="position: relative")
                         h5.card-title= book.name
-                        p.card-text(style="margin-bottom: 40px")= book.description                         
+                        p.card-text()= `Description: ${book.description}`
+                        p.card-text()= `Address: ${book.address}`                         
         .right-sidebar.col-sm-8(style='margin-left: 350px')
             form.form-inline.mt-5(method="post", action=`/users/books/${bookId}/suggestions?q`)
-                input.form-control.mr-sm-2(type='search', placeholder='Search', aria-label='Search')
+                input.form-control.mr-sm-2(type='search', placeholder='Distance (Km)', aria-label='Search', name ='distanceSearch', value = distance?distance:"")
                 button.btn.btn-outline-success.my-2.my-sm-0(type='submit') Search
 
             if bookOffers
@@ -21,6 +22,10 @@ block content
                     .row(style='margin-top: 10px')
                         .img-row.col-sm-3
                             img.card-img-top(src= bookOffer.image, alt='BIGBANG')
-                        .content-book.col-sm-9
+                        .content-book.col-sm-6
                             h5.card-title= bookOffer.name
-                            p.card-text(style="margin-bottom: 40px")= bookOffer.description 
+                            p()= `Description: ${bookOffer.description}`
+                            p()= `Address: ${bookOffer.address}`
+                            p()= `Distance: ${bookOffer.distance}` 
+                        .col-sm-3
+                            a.btn.btn-primary(href =`/users/books/${bookOffer._id}/suggestions/accept`) Accept        

@@ -4,10 +4,11 @@ block detail
         .row
             each book in books
                     if(book)
-                    .card.col-sm-6.mt-3(style='width: 18rem;')
+                    .card.col-sm-9.mt-3(style='width: 18rem;')
                         img.card-img-top(src= book.image, alt='BIGBANG')
                         .card-body(style="position: relative")
                             h5.card-title= book.name
-                            p.card-text(style="margin-bottom: 40px")= book.description
-                            a.btn.btn-primary(href='/cart/add/'+ book.id, style="position: absolute; bottom: 5px") Cart
+                            p.card-text()= `Description: ${book.description}`
+                            p.card-text()= `Address: ${book.address}`
+                        a.btn.btn-primary(href='/cart/add/'+ book.id, style="width: 100px") Cart
                     

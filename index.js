@@ -3,6 +3,7 @@ const express = require("express");
 const cookieParser = require("cookie-parser");
 const mongoose = require("mongoose");
 const Book = require("./models/book.model");
+const User = require("./models/user.model");
 
 const authRoute = require("./routes/auth.route");
 const bookRoute = require("./routes/book.route");
@@ -29,10 +30,11 @@ app.get("/home", (req, res)=>{
     res.render("index");
 })
 app.get("/books", async(req, res)=>{
+    const user = await User.findById(req.signedCookies.userId);
     const books = await Book.find();
     res.render("books/index",{
         books: books,
-        userId: req.signedCookies.userId
+        user: user
     })
 });
 
