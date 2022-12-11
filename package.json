@@ -26,7 +26,7 @@
     "@google/maps": "^1.0.2",
     "@sendgrid/mail": "^6.4.0",
     "cookie-parser": "^1.4.4",
-    "express": "^4.17.1",
+    "express": "^4.17.3",
     "geocoder": "^0.2.3",
     "http-status-codes": "^1.4.0",
     "husky": "^3.0.9",
